@@ -36,3 +36,19 @@ exports.addRequest = functions.https.onCall((data, context) => {
     upvotes: 0
   });
 });
+
+// upvote callable functions
+
+exports.upvote=functions.https.onCall((data,context)=>{
+    if(!context.auth){
+        throw new functions.https.HttpsError(
+            'unauthenticated',
+            'only auntenticated users can add requests'
+        );
+    }
+
+// get refs for user doc & request doc
+const user=admin.firestore().collection('users').doc(context.auth.uid)
+const request=admn=admin.firestore().collection('requests').doc(data.id)
+
+})
